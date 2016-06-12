@@ -14,9 +14,9 @@ import UIKit
  */
 
 public class AKPCollectionViewFlowLayout: UICollectionViewFlowLayout {
-    public var layoutOptions: LayoutConfigOptions = [.FirstSectionIsGlobalHeader,
-                                              .FirstSectionStretchable,
-                                              .SectionsPinToGlobalHeaderOrVisibleBounds]
+    public var layoutOptions: AKPLayoutConfigOptions = [.FirstSectionIsGlobalHeader,
+                                                        .FirstSectionStretchable,
+                                                        .SectionsPinToGlobalHeaderOrVisibleBounds]
     
     // AKPCollectionViewFlowLayout supports sticky headers by default,
     // and it should not interfere with the the built-in functionality
