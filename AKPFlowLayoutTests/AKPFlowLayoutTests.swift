@@ -6,31 +6,27 @@
 //  Copyright © 2016 Arseniy Kuznetsov. All rights reserved.
 //
 
-import XCTest
-@testable import AKPFlowLayout
+import Quick
+import Nimble
+import AKPFlowLayout
 
-class AKPFlowLayoutTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
+class AKPFlowLayoutTests: QuickSpec {
+    override func spec() {
+        describe("AKPFlowLayout") {
+            let akpFlowLayout: AKPCollectionViewFlowLayout = {
+                return $0
+            }( AKPCollectionViewFlowLayout() )
+            
+            it("has all layout config options on by default") {
+                expect(akpFlowLayout.layoutOptions.contains(.FirstSectionIsGlobalHeader)).to(beTrue())
+                expect(akpFlowLayout.layoutOptions.contains(.FirstSectionStretchable)).to(beTrue())
+                expect(akpFlowLayout.layoutOptions.contains(.SectionsPinToGlobalHeaderOrVisibleBounds)).to(beTrue())
+            }
+            
+            it("replaces built-in sectionHeadersPinToVisibleBounds") {
+                akpFlowLayout.sectionHeadersPinToVisibleBounds = true
+                expect(akpFlowLayout.sectionHeadersPinToVisibleBounds).to(beFalse())
+            }
         }
     }
-    
 }

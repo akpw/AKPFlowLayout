@@ -12,6 +12,9 @@
 		57FA3EC61D0D877E00EFD324 /* AKPFlowLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FA3EC51D0D877E00EFD324 /* AKPFlowLayoutTests.swift */; };
 		57FA3F071D0D8B8000EFD324 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FA3EDE1D0D8B5400EFD324 /* Nimble.framework */; };
 		57FA3F081D0D8B8A00EFD324 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FA3EFC1D0D8B6400EFD324 /* Quick.framework */; };
+		57FA3F0D1D0D8FC300EFD324 /* AKPCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FA3F0A1D0D8FC300EFD324 /* AKPCollectionViewFlowLayout.swift */; };
+		57FA3F0E1D0D8FC300EFD324 /* AKPCollectionViewFlowLayoutError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FA3F0B1D0D8FC300EFD324 /* AKPCollectionViewFlowLayoutError.swift */; };
+		57FA3F0F1D0D8FC300EFD324 /* LayoutConfigOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FA3F0C1D0D8FC300EFD324 /* LayoutConfigOptions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +141,9 @@
 		57FA3EC71D0D877E00EFD324 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57FA3ED41D0D8B5400EFD324 /* Nimble.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Nimble.xcodeproj; path = Carthage/Checkouts/Nimble/Nimble.xcodeproj; sourceTree = "<group>"; };
 		57FA3EE91D0D8B6300EFD324 /* Quick.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Quick.xcodeproj; path = Carthage/Checkouts/Quick/Quick.xcodeproj; sourceTree = "<group>"; };
+		57FA3F0A1D0D8FC300EFD324 /* AKPCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		57FA3F0B1D0D8FC300EFD324 /* AKPCollectionViewFlowLayoutError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPCollectionViewFlowLayoutError.swift; sourceTree = "<group>"; };
+		57FA3F0C1D0D8FC300EFD324 /* LayoutConfigOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutConfigOptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +190,9 @@
 			isa = PBXGroup;
 			children = (
 				57FA3EB91D0D877E00EFD324 /* AKPFlowLayout.h */,
+				57FA3F0A1D0D8FC300EFD324 /* AKPCollectionViewFlowLayout.swift */,
+				57FA3F0B1D0D8FC300EFD324 /* AKPCollectionViewFlowLayoutError.swift */,
+				57FA3F0C1D0D8FC300EFD324 /* LayoutConfigOptions.swift */,
 				57FA3EBB1D0D877E00EFD324 /* Info.plist */,
 			);
 			path = AKPFlowLayout;
@@ -462,6 +471,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57FA3F0E1D0D8FC300EFD324 /* AKPCollectionViewFlowLayoutError.swift in Sources */,
+				57FA3F0D1D0D8FC300EFD324 /* AKPCollectionViewFlowLayout.swift in Sources */,
+				57FA3F0F1D0D8FC300EFD324 /* LayoutConfigOptions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,7 +534,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -565,7 +577,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -578,6 +590,7 @@
 		57FA3ECB1D0D877E00EFD324 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -585,15 +598,18 @@
 				INFOPLIST_FILE = AKPFlowLayout/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.akpw.AKPFlowLayout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		57FA3ECC1D0D877E00EFD324 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -601,6 +617,7 @@
 				INFOPLIST_FILE = AKPFlowLayout/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.akpw.AKPFlowLayout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

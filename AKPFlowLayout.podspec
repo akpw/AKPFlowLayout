@@ -8,6 +8,6 @@ Pod::Spec.new do |spec|
 
   spec.platform = :ios, "8.0"
   spec.requires_arc = true
-  spec.source = { git: "https://github.com/akpw/AKPFlowLayout", tag: "v#{spec.version}", submodules: true }
+  spec.source = { git: "https://github.com/akpw/AKPFlowLayout.git", tag: "v#{spec.version}", submodules: true }
   spec.source_files = "AKPFlowLayout/**/*.{h,swift}"
 end
