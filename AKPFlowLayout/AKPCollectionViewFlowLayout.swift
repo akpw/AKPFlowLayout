@@ -113,16 +113,10 @@ public class AKPCollectionViewFlowLayout: UICollectionViewFlowLayout {
     private var _shouldDoCustomLayout: Bool {
         let requestForCustomLayout = layoutOptions.contains(.FirstSectionIsGlobalHeader) ||
                                      layoutOptions.contains(.FirstSectionStretchable) ||
-                                     layoutOptions.contains(.SectionsPinToGlobalHeaderOrVisibleBounds)
-        
-        // hope the annoying compiler warning (Radar 21324005) will get fixed at some point...
-        // http://ericasadun.com/2015/06/10/swift-is-available-the-most-irritating-new-swift-feature/
-        if #available(iOS 9.0, *) {
-            // iOS9 supports sticky headers natively, so we should not 
-            // interfere with the the built-in functionality
-            return !sectionHeadersPinToVisibleBounds && requestForCustomLayout
-        }
-        return requestForCustomLayout
+                                     layoutOptions.contains(.SectionsPinToGlobalHeaderOrVisibleBounds)        
+        // iOS9 supports sticky headers natively, so we should not
+        // interfere with the the built-in functionality
+        return !sectionHeadersPinToVisibleBounds && requestForCustomLayout
     }
     
     private func _checkSectionHeadersPinToVisibleBounds() throws {
