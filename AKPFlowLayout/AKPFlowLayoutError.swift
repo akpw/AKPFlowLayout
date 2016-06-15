@@ -1,5 +1,5 @@
 //
-//  AKPCollectionViewFlowLayoutError.swift
+//  AKPFlowLayoutError.swift
 //  SwiftNetworkImages
 //
 //  Created by Arseniy on 11/6/16.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-/// AKPCollectionViewFlowLayout Errors
+/// AKPFlowLayout Errors
 
-public enum AKPCollectionViewFlowLayoutError: ErrorType {
+public enum AKPFlowLayoutError: ErrorType {
     case SectionHeadersPinToVisibleBoundsSettingError
 }

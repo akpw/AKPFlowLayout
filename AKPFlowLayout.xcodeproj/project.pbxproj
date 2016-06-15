@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		57C203C81D103318004AB164 /* AKPFlowLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C203C71D103318004AB164 /* AKPFlowLayoutAttributes.swift */; };
 		57FA3EBA1D0D877E00EFD324 /* AKPFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 57FA3EB91D0D877E00EFD324 /* AKPFlowLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		57FA3EC11D0D877E00EFD324 /* AKPFlowLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FA3EB61D0D877E00EFD324 /* AKPFlowLayout.framework */; };
 		57FA3EC61D0D877E00EFD324 /* AKPFlowLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FA3EC51D0D877E00EFD324 /* AKPFlowLayoutTests.swift */; };
 		57FA3F071D0D8B8000EFD324 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FA3EDE1D0D8B5400EFD324 /* Nimble.framework */; };
 		57FA3F081D0D8B8A00EFD324 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FA3EFC1D0D8B6400EFD324 /* Quick.framework */; };
-		57FA3F0D1D0D8FC300EFD324 /* AKPCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FA3F0A1D0D8FC300EFD324 /* AKPCollectionViewFlowLayout.swift */; };
-		57FA3F0E1D0D8FC300EFD324 /* AKPCollectionViewFlowLayoutError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FA3F0B1D0D8FC300EFD324 /* AKPCollectionViewFlowLayoutError.swift */; };
+		57FA3F0D1D0D8FC300EFD324 /* AKPFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FA3F0A1D0D8FC300EFD324 /* AKPFlowLayout.swift */; };
+		57FA3F0E1D0D8FC300EFD324 /* AKPFlowLayoutError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FA3F0B1D0D8FC300EFD324 /* AKPFlowLayoutError.swift */; };
 		57FA3F0F1D0D8FC300EFD324 /* AKPLayoutConfigOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FA3F0C1D0D8FC300EFD324 /* AKPLayoutConfigOptions.swift */; };
 /* End PBXBuildFile section */
 
@@ -133,6 +134,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		57C203C71D103318004AB164 /* AKPFlowLayoutAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPFlowLayoutAttributes.swift; sourceTree = "<group>"; };
 		57FA3EB61D0D877E00EFD324 /* AKPFlowLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AKPFlowLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FA3EB91D0D877E00EFD324 /* AKPFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKPFlowLayout.h; sourceTree = "<group>"; };
 		57FA3EBB1D0D877E00EFD324 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -141,8 +143,8 @@
 		57FA3EC71D0D877E00EFD324 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57FA3ED41D0D8B5400EFD324 /* Nimble.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Nimble.xcodeproj; path = Carthage/Checkouts/Nimble/Nimble.xcodeproj; sourceTree = "<group>"; };
 		57FA3EE91D0D8B6300EFD324 /* Quick.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Quick.xcodeproj; path = Carthage/Checkouts/Quick/Quick.xcodeproj; sourceTree = "<group>"; };
-		57FA3F0A1D0D8FC300EFD324 /* AKPCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
-		57FA3F0B1D0D8FC300EFD324 /* AKPCollectionViewFlowLayoutError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPCollectionViewFlowLayoutError.swift; sourceTree = "<group>"; };
+		57FA3F0A1D0D8FC300EFD324 /* AKPFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPFlowLayout.swift; sourceTree = "<group>"; };
+		57FA3F0B1D0D8FC300EFD324 /* AKPFlowLayoutError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPFlowLayoutError.swift; sourceTree = "<group>"; };
 		57FA3F0C1D0D8FC300EFD324 /* AKPLayoutConfigOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPLayoutConfigOptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -190,8 +192,9 @@
 			isa = PBXGroup;
 			children = (
 				57FA3EB91D0D877E00EFD324 /* AKPFlowLayout.h */,
-				57FA3F0A1D0D8FC300EFD324 /* AKPCollectionViewFlowLayout.swift */,
-				57FA3F0B1D0D8FC300EFD324 /* AKPCollectionViewFlowLayoutError.swift */,
+				57FA3F0A1D0D8FC300EFD324 /* AKPFlowLayout.swift */,
+				57C203C71D103318004AB164 /* AKPFlowLayoutAttributes.swift */,
+				57FA3F0B1D0D8FC300EFD324 /* AKPFlowLayoutError.swift */,
 				57FA3F0C1D0D8FC300EFD324 /* AKPLayoutConfigOptions.swift */,
 				57FA3EBB1D0D877E00EFD324 /* Info.plist */,
 			);
@@ -471,8 +474,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57FA3F0E1D0D8FC300EFD324 /* AKPCollectionViewFlowLayoutError.swift in Sources */,
-				57FA3F0D1D0D8FC300EFD324 /* AKPCollectionViewFlowLayout.swift in Sources */,
+				57FA3F0E1D0D8FC300EFD324 /* AKPFlowLayoutError.swift in Sources */,
+				57C203C81D103318004AB164 /* AKPFlowLayoutAttributes.swift in Sources */,
+				57FA3F0D1D0D8FC300EFD324 /* AKPFlowLayout.swift in Sources */,
 				57FA3F0F1D0D8FC300EFD324 /* AKPLayoutConfigOptions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

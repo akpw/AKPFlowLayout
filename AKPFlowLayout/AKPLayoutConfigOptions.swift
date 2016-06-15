@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// AKPCollectionViewFlowLayout configuration options
+/// AKPFlowLayout configuration options
 
 public struct AKPLayoutConfigOptions: OptionSetType {
     public static let FirstSectionIsGlobalHeader =

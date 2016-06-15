@@ -1,5 +1,5 @@
 //
-//  AKPCollectionViewFlowLayout.swift
+//  AKPFlowLayout.swift
 //  SwiftNetworkImages
 //
 //  Created by Arseniy on 18/5/16.
@@ -13,31 +13,36 @@ import UIKit
  Works for iOS8, iOS9 and above.
  */
 
-public class AKPCollectionViewFlowLayout: UICollectionViewFlowLayout {
+public class AKPFlowLayout: UICollectionViewFlowLayout {
     public var layoutOptions: AKPLayoutConfigOptions = [.FirstSectionIsGlobalHeader,
                                                         .FirstSectionStretchable,
                                                         .SectionsPinToGlobalHeaderOrVisibleBounds]
-    
-    // AKPCollectionViewFlowLayout supports sticky headers by default,
+    public var firsSectionMaximumStretchHeight = CGFloat.max
+
+    // AKPFlowLayout supports sticky headers by default,
     // and it should not interfere with the the built-in functionality
     override public var sectionHeadersPinToVisibleBounds: Bool {
         didSet {
             do {
-                try _checkSectionHeadersPinToVisibleBounds()
+                try checkSectionHeadersPinToVisibleBounds()
             } catch {
-                print("AKPCollectionViewFlowLayout supports sticky headers by default, therefore " +
+                print("AKPFlowLayout supports sticky headers by default, therefore " +
                       "the built-in functionality via sectionHeadersPinToVisibleBounds has been disabled")
                 sectionHeadersPinToVisibleBounds = false
             }
         }
     }
     
+    public override class func layoutAttributesClass() -> AnyClass {
+        return AKPFlowLayoutAttributes.self
+    }
+    
     // MARK: - 📐Custom Layout
-    /// Adds custom sticky header to the  UICollectionViewFlowLayout attributes
+    /// Adds custom headers to the  UICollectionViewFlowLayout attributes
     override public func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        guard _shouldDoCustomLayout else { return super.layoutAttributesForElementsInRect(rect) }
+        guard shouldDoCustomLayout else { return super.layoutAttributesForElementsInRect(rect) }
         
-        guard var layoutAttributes = super.layoutAttributesForElementsInRect(rect),
+        guard var layoutAttributes = super.layoutAttributesForElementsInRect(rect) as? [AKPFlowLayoutAttributes],
             // calculate custom headers that should be confined in the rect
               let customSectionHeadersIdxs = customSectionHeadersIdxs(rect) else { return nil }
         
@@ -46,7 +51,7 @@ public class AKPCollectionViewFlowLayout: UICollectionViewFlowLayout {
             let indexPath = NSIndexPath(forItem: 0, inSection: idx)
             if let attributes = super.layoutAttributesForSupplementaryViewOfKind(
                                                             UICollectionElementKindSectionHeader,
-                                                            atIndexPath: indexPath) {
+                                                            atIndexPath: indexPath) as? AKPFlowLayoutAttributes {
                 // add the custom headers to the layout attributes
                 layoutAttributes.append(attributes)
             }
@@ -63,12 +68,13 @@ public class AKPCollectionViewFlowLayout: UICollectionViewFlowLayout {
     override public func layoutAttributesForSupplementaryViewOfKind(elementKind: String,
                                                              atIndexPath indexPath: NSIndexPath)
                                                                     -> UICollectionViewLayoutAttributes? {
-        guard _shouldDoCustomLayout else {
+        guard shouldDoCustomLayout else {
             return super.layoutAttributesForSupplementaryViewOfKind(elementKind, atIndexPath: indexPath)}
         
         guard let sectionHeaderAttributes = super.layoutAttributesForSupplementaryViewOfKind(
-                                                                elementKind,
-                                                                atIndexPath: indexPath) else { return nil }
+                                                            elementKind,
+                                                            atIndexPath: indexPath)
+                                                            as? AKPFlowLayoutAttributes else { return nil }
         // For the purpose of invalidation, need to adjust section attributes
         (sectionHeaderAttributes.frame, sectionHeaderAttributes.zIndex) =
                                         adjustLayoutAttributes(forSectionAttributes: sectionHeaderAttributes)
@@ -78,14 +84,14 @@ public class AKPCollectionViewFlowLayout: UICollectionViewFlowLayout {
     // MARK: - 🎳Invalidation
     /// - returns: `true`, unless running on iOS9 with `sectionHeadersPinToVisibleBounds` set to `true`
     override public func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
-        guard _shouldDoCustomLayout else { return super.shouldInvalidateLayoutForBoundsChange(newBounds) }
+        guard shouldDoCustomLayout else { return super.shouldInvalidateLayoutForBoundsChange(newBounds) }
         return true
     }
     
     /// Custom invalidation context
     override public func invalidationContextForBoundsChange(newBounds: CGRect)
                                         -> UICollectionViewLayoutInvalidationContext {
-        guard _shouldDoCustomLayout,
+        guard shouldDoCustomLayout,
               let invalidationContext = super.invalidationContextForBoundsChange(newBounds)
                                                 as? UICollectionViewFlowLayoutInvalidationContext,
               let oldBounds = collectionView?.bounds
@@ -108,9 +114,12 @@ public class AKPCollectionViewFlowLayout: UICollectionViewFlowLayout {
         }
         return invalidationContext
     }
-    
-    // MARK: - 🕶Private Helpers
-    private var _shouldDoCustomLayout: Bool {
+    private var previousStretchFactor = CGFloat(0)
+}
+
+// MARK: - 🕶Private Helpers
+extension AKPFlowLayout {
+    private var shouldDoCustomLayout: Bool {
         let requestForCustomLayout = layoutOptions.contains(.FirstSectionIsGlobalHeader) ||
                                      layoutOptions.contains(.FirstSectionStretchable) ||
                                      layoutOptions.contains(.SectionsPinToGlobalHeaderOrVisibleBounds)        
@@ -118,26 +127,29 @@ public class AKPCollectionViewFlowLayout: UICollectionViewFlowLayout {
         // interfere with the the built-in functionality
         return !sectionHeadersPinToVisibleBounds && requestForCustomLayout
     }
-    
-    private func _checkSectionHeadersPinToVisibleBounds() throws {
+    // Checks the built-in functionality of sectionHeadersPinToVisibleBounds,
+    // that should be disabled as it might interfere
+    private func checkSectionHeadersPinToVisibleBounds() throws {
         if sectionHeadersPinToVisibleBounds {
-            throw AKPCollectionViewFlowLayoutError.SectionHeadersPinToVisibleBoundsSettingError
+            throw AKPFlowLayoutError.SectionHeadersPinToVisibleBoundsSettingError
         }
     }
-    private let _zIndexForSectionHeader = 1024
 
+    private func zIndexForSection(section: Int) -> Int {
+        return section > 0 ? 128 : 256
+    }
+    
     /// Given a rect, calculates indexes of confined section headers 
     /// including the custom headers
     private func sectionsHeadersIDxs(forRect rect: CGRect) -> Set<Int>? {
-        guard let layoutAttributes = super.layoutAttributesForElementsInRect(rect) else {return nil}
-        var headersIdxs = layoutAttributes
-            .filter { ( layoutOptions.contains(.SectionsPinToGlobalHeaderOrVisibleBounds) &&
-                        $0.representedElementCategory == .Cell ) ||
-                            $0.representedElementKind == UICollectionElementKindSectionHeader }
-            .reduce(Set<Int>()) {
-                var m = $0
-                m.insert($1.indexPath.section)
-                return m
+        guard let layoutAttributes = super.layoutAttributesForElementsInRect(rect)
+                                                    as? [AKPFlowLayoutAttributes] else {return nil}
+        let sectionsShouldPin = self.layoutOptions.contains(.SectionsPinToGlobalHeaderOrVisibleBounds)
+        
+        var headersIdxs = Set<Int>()
+        for attributes in layoutAttributes
+                where attributes.visibleSectionHeader(sectionsShouldPin) {
+            headersIdxs.insert(attributes.indexPath.section)
         }
         if layoutOptions.contains(.FirstSectionIsGlobalHeader) {
             headersIdxs.insert(0)
@@ -149,23 +161,20 @@ public class AKPCollectionViewFlowLayout: UICollectionViewFlowLayout {
     /// excluding the regular headers handled by UICollectionViewFlowLayout
     private func customSectionHeadersIdxs(rect: CGRect) -> Set<Int>? {
         guard let layoutAttributes = super.layoutAttributesForElementsInRect(rect),
-            sectionIdxs = sectionsHeadersIDxs(forRect: rect)  else {return nil}
+              var sectionIdxs = sectionsHeadersIDxs(forRect: rect)  else {return nil}
         
         // remove the sections that should already be taken care of by UICollectionViewFlowLayout
-        let customHeadersIdxs = layoutAttributes
-            .filter { $0.representedElementKind == UICollectionElementKindSectionHeader }
-            .reduce(sectionIdxs) {
-                var m = $0
-                m.remove($1.indexPath.section)
-                return m
+        for attributes in layoutAttributes
+            where attributes.representedElementKind == UICollectionElementKindSectionHeader {
+                sectionIdxs.remove(attributes.indexPath.section)
         }
-        return customHeadersIdxs
+        return sectionIdxs
     }
     
     // Adjusts frames of section headers
-    private func adjustLayoutAttributes(
-                    forSectionAttributes sectionHeadersLayoutAttributes: UICollectionViewLayoutAttributes)
-                                                                                            -> (CGRect, Int) {
+    private func adjustLayoutAttributes(forSectionAttributes
+                                            sectionHeadersLayoutAttributes: AKPFlowLayoutAttributes)
+                                                                                             -> (CGRect, Int) {
         guard let collectionView = collectionView else { return (CGRect.zero, 0) }
         let section = sectionHeadersLayoutAttributes.indexPath.section
         var sectionFrame = sectionHeadersLayoutAttributes.frame
@@ -191,7 +200,15 @@ public class AKPCollectionViewFlowLayout: UICollectionViewFlowLayout {
         } else {
             if layoutOptions.contains(.FirstSectionStretchable) && offset < 0 {
                 // A stretchy header adjustment
-                sectionFrame.size.height = firstSectionHeight - offset
+                if firstSectionHeight - offset < firsSectionMaximumStretchHeight {
+                    sectionFrame.size.height = firstSectionHeight - offset
+                    sectionHeadersLayoutAttributes.stretchFactor = fabs(offset)
+                    previousStretchFactor = sectionHeadersLayoutAttributes.stretchFactor
+                } else {
+                    // need to limit header stretch
+                    sectionFrame.size.height = firsSectionMaximumStretchHeight
+                    sectionHeadersLayoutAttributes.stretchFactor = previousStretchFactor
+                }
                 sectionFrame.origin.y += offset + firstSectionInsets.top
             } else if layoutOptions.contains(.FirstSectionIsGlobalHeader) {
                 // A global header adjustment
@@ -200,7 +217,7 @@ public class AKPCollectionViewFlowLayout: UICollectionViewFlowLayout {
                 sectionFrame.origin.y = min(max(offset, minY), maxY)
             }
         }
-        return (sectionFrame, section > 0 ? _zIndexForSectionHeader : _zIndexForSectionHeader + 1)
+        return (sectionFrame, zIndexForSection(section))
     }
     
     private func boundaryMetrics(
@@ -251,6 +268,21 @@ public class AKPCollectionViewFlowLayout: UICollectionViewFlowLayout {
         return (firstSectionHeight, theSectionInset)
     }
 }
+
+private extension AKPFlowLayoutAttributes {
+    func visibleSectionHeader(sectionsShouldPin: Bool) -> Bool {
+        let isHeader = self.representedElementKind == UICollectionElementKindSectionHeader
+        let isCellInPinnedSection = sectionsShouldPin && ( self.representedElementCategory == .Cell )
+        return isCellInPinnedSection || isHeader
+    }
+}
+
+
+
+
+
+
+
 
 
 
