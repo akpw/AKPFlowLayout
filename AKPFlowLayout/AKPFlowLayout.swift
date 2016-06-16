@@ -10,38 +10,46 @@ import UIKit
 
 /**
  Global / Sticky / Stretchy Headers using UICollectionViewFlowLayout.
- Works for iOS8, iOS9 and above.
+ Works for iOS8 and above.
  */
 
-public class AKPFlowLayout: UICollectionViewFlowLayout {
+public final class AKPFlowLayout: UICollectionViewFlowLayout {
+    /// Layout configuration options
     public var layoutOptions: AKPLayoutConfigOptions = [.FirstSectionIsGlobalHeader,
                                                         .FirstSectionStretchable,
                                                         .SectionsPinToGlobalHeaderOrVisibleBounds]
+    /// For stretchy headers, allowis limiting amount of stretch
     public var firsSectionMaximumStretchHeight = CGFloat.max
-
-    // AKPFlowLayout supports sticky headers by default,
-    // and it should not interfere with the the built-in functionality
-    override public var sectionHeadersPinToVisibleBounds: Bool {
-        didSet {
-            do {
-                try checkSectionHeadersPinToVisibleBounds()
-            } catch {
-                print("AKPFlowLayout supports sticky headers by default, therefore " +
-                      "the built-in functionality via sectionHeadersPinToVisibleBounds has been disabled")
-                sectionHeadersPinToVisibleBounds = false
-            }
+    
+    // MARK: - Initialization
+    override public init() {
+        super.init()
+        // For iOS9, needs to ensure the impl does not interfere with `sectionHeadersPinToVisibleBounds`
+        // Seems to be no reasonable way yet to use Swift property observers with conditional compilation, 
+        // so falling back to KVO
+        if #available(iOS 9.0, *) {
+            addObserver(self, forKeyPath: "sectionHeadersPinToVisibleBounds",
+                                                    options: .New, context: &AKPFlowLayoutKVOContext)
         }
     }
-    
-    public override class func layoutAttributesClass() -> AnyClass {
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    deinit {
+        if #available(iOS 9.0, *) {
+            removeObserver(self, forKeyPath: "sectionHeadersPinToVisibleBounds", context: &AKPFlowLayoutKVOContext)
+        }
+    }
+
+    // MARK: - 📐Custom Layout
+    /// - returns:  AKPFlowLayoutAttributes class for handling layout attributes
+    override public class func layoutAttributesClass() -> AnyClass {
         return AKPFlowLayoutAttributes.self
     }
-    
-    // MARK: - 📐Custom Layout
-    /// Adds custom headers to the  UICollectionViewFlowLayout attributes
+
+    /// Returns the layout attributes for the specified rectangle, with added custom headers
     override public func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         guard shouldDoCustomLayout else { return super.layoutAttributesForElementsInRect(rect) }
-        
         guard var layoutAttributes = super.layoutAttributesForElementsInRect(rect) as? [AKPFlowLayoutAttributes],
             // calculate custom headers that should be confined in the rect
               let customSectionHeadersIdxs = customSectionHeadersIdxs(rect) else { return nil }
@@ -64,18 +72,18 @@ public class AKPFlowLayout: UICollectionViewFlowLayout {
         return layoutAttributes
     }
     
-    /// Adjusts layout attributes for the custom sections
+    /// Adjusts layout attributes for the custom section headers
     override public func layoutAttributesForSupplementaryViewOfKind(elementKind: String,
                                                              atIndexPath indexPath: NSIndexPath)
                                                                     -> UICollectionViewLayoutAttributes? {
         guard shouldDoCustomLayout else {
-            return super.layoutAttributesForSupplementaryViewOfKind(elementKind, atIndexPath: indexPath)}
+            return super.layoutAttributesForSupplementaryViewOfKind(elementKind, atIndexPath: indexPath) }
         
         guard let sectionHeaderAttributes = super.layoutAttributesForSupplementaryViewOfKind(
                                                             elementKind,
                                                             atIndexPath: indexPath)
                                                             as? AKPFlowLayoutAttributes else { return nil }
-        // For the purpose of invalidation, need to adjust section attributes
+        // Adjust section attributes
         (sectionHeaderAttributes.frame, sectionHeaderAttributes.zIndex) =
                                         adjustLayoutAttributes(forSectionAttributes: sectionHeaderAttributes)
         return sectionHeaderAttributes
@@ -125,26 +133,22 @@ extension AKPFlowLayout {
                                      layoutOptions.contains(.SectionsPinToGlobalHeaderOrVisibleBounds)        
         // iOS9 supports sticky headers natively, so we should not
         // interfere with the the built-in functionality
-        return !sectionHeadersPinToVisibleBounds && requestForCustomLayout
-    }
-    // Checks the built-in functionality of sectionHeadersPinToVisibleBounds,
-    // that should be disabled as it might interfere
-    private func checkSectionHeadersPinToVisibleBounds() throws {
-        if sectionHeadersPinToVisibleBounds {
-            throw AKPFlowLayoutError.SectionHeadersPinToVisibleBoundsSettingError
+        if #available(iOS 9.0, *) {
+            return !sectionHeadersPinToVisibleBounds && requestForCustomLayout
         }
+        return requestForCustomLayout
     }
 
     private func zIndexForSection(section: Int) -> Int {
         return section > 0 ? 128 : 256
     }
     
-    /// Given a rect, calculates indexes of confined section headers 
-    /// including the custom headers
+    // Given a rect, calculates indexes of confined section headers
+    // including the custom headers
     private func sectionsHeadersIDxs(forRect rect: CGRect) -> Set<Int>? {
         guard let layoutAttributes = super.layoutAttributesForElementsInRect(rect)
                                                     as? [AKPFlowLayoutAttributes] else {return nil}
-        let sectionsShouldPin = self.layoutOptions.contains(.SectionsPinToGlobalHeaderOrVisibleBounds)
+        let sectionsShouldPin = layoutOptions.contains(.SectionsPinToGlobalHeaderOrVisibleBounds)
         
         var headersIdxs = Set<Int>()
         for attributes in layoutAttributes
@@ -157,8 +161,8 @@ extension AKPFlowLayout {
         return headersIdxs
     }
     
-    /// Given a rect, calculates the indexes of confined custom section headers
-    /// excluding the regular headers handled by UICollectionViewFlowLayout
+    // Given a rect, calculates the indexes of confined custom section headers
+    // excluding the regular headers handled by UICollectionViewFlowLayout
     private func customSectionHeadersIdxs(rect: CGRect) -> Set<Int>? {
         guard let layoutAttributes = super.layoutAttributesForElementsInRect(rect),
               var sectionIdxs = sectionsHeadersIDxs(forRect: rect)  else {return nil}
@@ -269,15 +273,35 @@ extension AKPFlowLayout {
     }
 }
 
-private extension AKPFlowLayoutAttributes {
-    func visibleSectionHeader(sectionsShouldPin: Bool) -> Bool {
-        let isHeader = self.representedElementKind == UICollectionElementKindSectionHeader
-        let isCellInPinnedSection = sectionsShouldPin && ( self.representedElementCategory == .Cell )
-        return isCellInPinnedSection || isHeader
+extension AKPFlowLayout {
+     /// KVO check for `sectionHeadersPinToVisibleBounds`.
+     /// For iOS9, needs to ensure the impl does not interfere with `sectionHeadersPinToVisibleBounds`
+     override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?,
+                                                change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        if context == &AKPFlowLayoutKVOContext {
+            if let newValue = change?[NSKeyValueChangeNewKey],
+                boolValue = newValue as? Bool where boolValue {
+                print("AKPFlowLayout supports sticky headers by default, therefore " +
+                    "the built-in functionality via sectionHeadersPinToVisibleBounds has been disabled")
+                if #available(iOS 9.0, *) { sectionHeadersPinToVisibleBounds = false }
+            }
+        } else {
+            super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+        }
     }
 }
 
 
+// MARK: - KVO check for `sectionHeadersPinToVisibleBounds`
+private extension AKPFlowLayoutAttributes {
+    func visibleSectionHeader(sectionsShouldPin: Bool) -> Bool {
+        let isHeader = representedElementKind == UICollectionElementKindSectionHeader
+        let isCellInPinnedSection = sectionsShouldPin && ( representedElementCategory == .Cell )
+        return isCellInPinnedSection || isHeader
+    }
+}
+
+private var AKPFlowLayoutKVOContext = 0
 
 
 

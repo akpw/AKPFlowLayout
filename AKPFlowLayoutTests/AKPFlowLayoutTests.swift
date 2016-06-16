@@ -28,9 +28,14 @@ class AKPFlowLayoutTests: QuickSpec {
                 expect(akpFlowLayout.layoutOptions.contains(.SectionsPinToGlobalHeaderOrVisibleBounds)).to(beTrue())
             }
             
-            it("replaces built-in sectionHeadersPinToVisibleBounds") {
-                akpFlowLayout.sectionHeadersPinToVisibleBounds = true
-                expect(akpFlowLayout.sectionHeadersPinToVisibleBounds).to(beFalse())
+            it("rwhen running on iSO9, it replaces built-in sectionHeadersPinToVisibleBounds") {
+                if #available(iOS 9.0, *) {
+                    akpFlowLayout.sectionHeadersPinToVisibleBounds = false
+                    expect(akpFlowLayout.sectionHeadersPinToVisibleBounds).to(beFalse())
+
+                    akpFlowLayout.sectionHeadersPinToVisibleBounds = true
+                    expect(akpFlowLayout.sectionHeadersPinToVisibleBounds).to(beFalse())
+                }
             }
             
             it("has given firsSectionMaximumStretchHeight value") {
