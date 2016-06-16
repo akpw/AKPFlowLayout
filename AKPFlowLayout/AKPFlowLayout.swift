@@ -47,24 +47,24 @@ public final class AKPFlowLayout: UICollectionViewFlowLayout {
         return AKPFlowLayoutAttributes.self
     }
 
-    /// Returns the layout attributes for the specified rectangle, with added custom headers
+    /// Returns layout attributes for specified rectangle, with added custom headers
     override public func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         guard shouldDoCustomLayout else { return super.layoutAttributesForElementsInRect(rect) }
+        
         guard var layoutAttributes = super.layoutAttributesForElementsInRect(rect) as? [AKPFlowLayoutAttributes],
-            // calculate custom headers that should be confined in the rect
+              // calculate custom headers that should be confined in the rect
               let customSectionHeadersIdxs = customSectionHeadersIdxs(rect) else { return nil }
         
-        // now add our custom headers to the regular UICollectionViewFlowLayout layoutAttributes
+        // add the custom headers to the regular UICollectionViewFlowLayout layoutAttributes
         for idx in customSectionHeadersIdxs {
             let indexPath = NSIndexPath(forItem: 0, inSection: idx)
             if let attributes = super.layoutAttributesForSupplementaryViewOfKind(
-                                                            UICollectionElementKindSectionHeader,
-                                                            atIndexPath: indexPath) as? AKPFlowLayoutAttributes {
-                // add the custom headers to the layout attributes
+                                                    UICollectionElementKindSectionHeader,
+                                                    atIndexPath: indexPath) as? AKPFlowLayoutAttributes {
                 layoutAttributes.append(attributes)
             }
         }
-        // for section headers in layoutAttributes, now time to adjust their attributes
+        // for section headers in layoutAttributes, need to adjust their attributes
         for attributes in layoutAttributes where
             attributes.representedElementKind == UICollectionElementKindSectionHeader {
                 (attributes.frame, attributes.zIndex) = adjustLayoutAttributes(forSectionAttributes: attributes)
@@ -96,7 +96,7 @@ public final class AKPFlowLayout: UICollectionViewFlowLayout {
         return true
     }
     
-    /// Custom invalidation context
+    /// Custom invalidation
     override public func invalidationContextForBoundsChange(newBounds: CGRect)
                                         -> UICollectionViewLayoutInvalidationContext {
         guard shouldDoCustomLayout,
@@ -128,13 +128,13 @@ public final class AKPFlowLayout: UICollectionViewFlowLayout {
 // MARK: - 🕶Private Helpers
 extension AKPFlowLayout {
     private var shouldDoCustomLayout: Bool {
-        let requestForCustomLayout = layoutOptions.contains(.FirstSectionIsGlobalHeader) ||
+        var requestForCustomLayout = layoutOptions.contains(.FirstSectionIsGlobalHeader) ||
                                      layoutOptions.contains(.FirstSectionStretchable) ||
                                      layoutOptions.contains(.SectionsPinToGlobalHeaderOrVisibleBounds)        
         // iOS9 supports sticky headers natively, so we should not
         // interfere with the the built-in functionality
         if #available(iOS 9.0, *) {
-            return !sectionHeadersPinToVisibleBounds && requestForCustomLayout
+            requestForCustomLayout = requestForCustomLayout && !sectionHeadersPinToVisibleBounds
         }
         return requestForCustomLayout
     }
@@ -143,8 +143,8 @@ extension AKPFlowLayout {
         return section > 0 ? 128 : 256
     }
     
-    // Given a rect, calculates indexes of confined section headers
-    // including the custom headers
+    // Given a rect, calculates indexes of all confined section headers
+    // _including_ the custom headers
     private func sectionsHeadersIDxs(forRect rect: CGRect) -> Set<Int>? {
         guard let layoutAttributes = super.layoutAttributesForElementsInRect(rect)
                                                     as? [AKPFlowLayoutAttributes] else {return nil}
@@ -162,7 +162,7 @@ extension AKPFlowLayout {
     }
     
     // Given a rect, calculates the indexes of confined custom section headers
-    // excluding the regular headers handled by UICollectionViewFlowLayout
+    // _excluding_ the regular headers handled by UICollectionViewFlowLayout
     private func customSectionHeadersIdxs(rect: CGRect) -> Set<Int>? {
         guard let layoutAttributes = super.layoutAttributesForElementsInRect(rect),
               var sectionIdxs = sectionsHeadersIDxs(forRect: rect)  else {return nil}
@@ -175,7 +175,7 @@ extension AKPFlowLayout {
         return sectionIdxs
     }
     
-    // Adjusts frames of section headers
+    // Adjusts layout attributes of section headers
     private func adjustLayoutAttributes(forSectionAttributes
                                             sectionHeadersLayoutAttributes: AKPFlowLayoutAttributes)
                                                                                              -> (CGRect, Int) {
@@ -194,6 +194,7 @@ extension AKPFlowLayout {
         //   (adjusting a few more things along the way)
         var offset = collectionView.contentOffset.y + collectionView.contentInset.top
         if (section > 0) {
+            // The global section
             if layoutOptions.contains(.SectionsPinToGlobalHeaderOrVisibleBounds) {
                 if layoutOptions.contains(.FirstSectionIsGlobalHeader) {
                     // A global header adjustment
@@ -203,19 +204,19 @@ extension AKPFlowLayout {
             }
         } else {
             if layoutOptions.contains(.FirstSectionStretchable) && offset < 0 {
-                // A stretchy header adjustment
+                // Stretchy header
                 if firstSectionHeight - offset < firsSectionMaximumStretchHeight {
                     sectionFrame.size.height = firstSectionHeight - offset
                     sectionHeadersLayoutAttributes.stretchFactor = fabs(offset)
                     previousStretchFactor = sectionHeadersLayoutAttributes.stretchFactor
                 } else {
-                    // need to limit header stretch
+                    // here we need to limit the stretch
                     sectionFrame.size.height = firsSectionMaximumStretchHeight
                     sectionHeadersLayoutAttributes.stretchFactor = previousStretchFactor
                 }
                 sectionFrame.origin.y += offset + firstSectionInsets.top
             } else if layoutOptions.contains(.FirstSectionIsGlobalHeader) {
-                // A global header adjustment
+                // Sticky header position needs to be relative to the global header
                 sectionFrame.origin.y += offset + firstSectionInsets.top
             } else {
                 sectionFrame.origin.y = min(max(offset, minY), maxY)

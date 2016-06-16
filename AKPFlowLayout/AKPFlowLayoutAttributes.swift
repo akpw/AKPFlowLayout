@@ -12,14 +12,14 @@ import UIKit
 
 public class AKPFlowLayoutAttributes: UICollectionViewLayoutAttributes {
     
-    /// Set by AKPFlowLayout when managing section heades stretching
-    /// Typically used for reporting amount of stretch back to the collection view items
+    /// Set by AKPFlowLayout when managing section headers stretching
+    /// Can be used further for e.g. reporting amount of stretch back to the collection view items
     public var stretchFactor: CGFloat = 0
     
     override public func copyWithZone(zone: NSZone) -> AnyObject {
-        let copy = super.copyWithZone(zone) as! AKPFlowLayoutAttributes
-        copy.stretchFactor = stretchFactor
-        return copy
+        let aCopy = super.copyWithZone(zone) as! AKPFlowLayoutAttributes
+        aCopy.stretchFactor = stretchFactor
+        return aCopy
     }
     
     override public func isEqual(object: AnyObject?) -> Bool {
