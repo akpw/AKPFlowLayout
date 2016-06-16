@@ -76,6 +76,9 @@ Pods
 Podfile.lock
 iCasualTours.xcworkspace
 
+#Carthage
+Carthage/Checkouts
+
 
 # Other source repository archive directories #
 ###############################################

@@ -28,7 +28,7 @@ class AKPFlowLayoutTests: QuickSpec {
                 expect(akpFlowLayout.layoutOptions.contains(.SectionsPinToGlobalHeaderOrVisibleBounds)).to(beTrue())
             }
             
-            it("rwhen running on iSO9, it replaces built-in sectionHeadersPinToVisibleBounds") {
+            it("when running on iSO9, it disables built-in sectionHeadersPinToVisibleBounds") {
                 if #available(iOS 9.0, *) {
                     akpFlowLayout.sectionHeadersPinToVisibleBounds = false
                     expect(akpFlowLayout.sectionHeadersPinToVisibleBounds).to(beFalse())
