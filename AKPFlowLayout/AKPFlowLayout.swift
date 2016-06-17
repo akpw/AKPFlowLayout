@@ -64,7 +64,7 @@ public final class AKPFlowLayout: UICollectionViewFlowLayout {
                 layoutAttributes.append(attributes)
             }
         }
-        // for section headers in layoutAttributes, need to adjust their attributes
+        // for section headers, need to adjust their attributes
         for attributes in layoutAttributes where
             attributes.representedElementKind == UICollectionElementKindSectionHeader {
                 (attributes.frame, attributes.zIndex) = adjustLayoutAttributes(forSectionAttributes: attributes)
@@ -183,10 +183,10 @@ extension AKPFlowLayout {
         let section = sectionHeadersLayoutAttributes.indexPath.section
         var sectionFrame = sectionHeadersLayoutAttributes.frame
 
-        // 1. Let's establish the section boundaries:
+        // 1. Establish the section boundaries:
         let (minY, maxY) = boundaryMetrics(forSectionAttributes: sectionHeadersLayoutAttributes)
         
-        // 2. Let's also determine the height and insets of the first section,
+        // 2. Determine the height and insets of the first section,
         //    in case it's stretchable or serves as a global header
         let (firstSectionHeight, firstSectionInsets) = firstSectionMetrics()
                                                                                                 
@@ -210,7 +210,7 @@ extension AKPFlowLayout {
                     sectionHeadersLayoutAttributes.stretchFactor = fabs(offset)
                     previousStretchFactor = sectionHeadersLayoutAttributes.stretchFactor
                 } else {
-                    // here we need to limit the stretch
+                    // need to limit the stretch
                     sectionFrame.size.height = firsSectionMaximumStretchHeight
                     sectionHeadersLayoutAttributes.stretchFactor = previousStretchFactor
                 }
@@ -274,6 +274,7 @@ extension AKPFlowLayout {
     }
 }
 
+// MARK: - KVO check for `sectionHeadersPinToVisibleBounds`
 extension AKPFlowLayout {
      /// KVO check for `sectionHeadersPinToVisibleBounds`.
      /// For iOS9, needs to ensure the impl does not interfere with `sectionHeadersPinToVisibleBounds`
@@ -293,8 +294,8 @@ extension AKPFlowLayout {
 }
 
 
-// MARK: - KVO check for `sectionHeadersPinToVisibleBounds`
 private extension AKPFlowLayoutAttributes {
+    // Determines if element is a section, or is a cell in a section with custom header
     func visibleSectionHeader(sectionsShouldPin: Bool) -> Bool {
         let isHeader = representedElementKind == UICollectionElementKindSectionHeader
         let isCellInPinnedSection = sectionsShouldPin && ( representedElementCategory == .Cell )
