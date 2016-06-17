@@ -27,6 +27,7 @@ AKPFlowLayout is a custom Collection View layout with configurable global header
 
 ## Requirements
 * iOS 8+
+* Xcode 7.3+
 * Swift 2.2+
 
 ## Installation
@@ -44,4 +45,40 @@ pod 'AKPFlowLayout', :git => 'https://github.com/akpw/AKPFlowLayout'
     github "akpw/AKPFlowLayout"
     ```
 2. Follow the [Carthage instructions on adding frameworks](https://github.com/Carthage/Carthage/blob/master/README.md#adding-frameworks-to-an-application) for further reference
+
+
+## Docs		
+ [Initial docs][docsLink], generated with [jazzy](https://github.com/realm/jazzy) and hosted by [GitHub Pages](https://pages.github.com).
+
+
+## Building the project
+
+1) Clone the repository
+
+```bash
+$ git clone https://github.com/akpw/AKPFlowLayout
+```
+
+2) Run carthage.sh
+
+```bash
+$ cd AKPFlowLayout
+$ ./carthage.sh
+```
+
+3) Open the workspace in Xcode
+
+```bash
+$ open "AKPFlowLayout.xcworkspace"
+```
+
+4) Compile and test in Xcode
+
+
+
+
+[docsLink]:https://akpw.github.io//AKPFlowLayout/index.html
+
+
+
 
