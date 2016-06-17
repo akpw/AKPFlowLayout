@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
   spec.name = "AKPFlowLayout"
   spec.version = "0.1.1"
-  spec.summary = "Global pinnable, stretchable section headers for UICollectionViewFlowLayout"
+  spec.summary = "A custom UICollectionView layout with configurable global header and pinnable, stretchable section headers"
   spec.homepage = "https://github.com/akpw/AKPFlowLayout"
   spec.license = { type: 'MIT', file: 'LICENSE' }
   spec.authors = { "Arseniy Kuznetsov" => 'k.arseniy@gmail.com' }
