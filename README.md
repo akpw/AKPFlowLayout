@@ -40,10 +40,8 @@ pod 'AKPFlowLayout', :git => 'https://github.com/akpw/AKPFlowLayout'
 
 #### [Carthage](https://github.com/Carthage/Carthage)
 1. Add AKPFlowLayout to your [`Cartfile`](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile):
-
-```sh
-github "akpw/AKPFlowLayout"
-```
-
+    ```
+    github "akpw/AKPFlowLayout"
+    ```
 2. Follow the [Carthage instructions on adding frameworks](https://github.com/Carthage/Carthage/blob/master/README.md#adding-frameworks-to-an-application) for further reference
 
