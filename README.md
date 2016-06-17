@@ -15,6 +15,8 @@ AKPFlowLayout is a custom Collection View layout with configurable global header
 
 ## Sample App
 * [SwiftNetworkImages](https://github.com/akpw/SwiftNetworkImages)
+
+![Animation](http://www.akpdev.com/images/akp_l.gif)
  
 
 ## Features
