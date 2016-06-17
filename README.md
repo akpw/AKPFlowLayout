@@ -36,7 +36,7 @@ AKPFlowLayout is a custom Collection View layout with configurable global header
 
 ````sh
 use_frameworks!
-pod 'AKPFlowLayout', :git => 'https://github.com/akpw/AKPFlowLayout'
+pod 'AKPFlowLayout'
 ````
 
 #### [Carthage](https://github.com/Carthage/Carthage)
