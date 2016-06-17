@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>AKPFlowLayout  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+
+
+    <a title="AKPFlowLayout  Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="index.html">
+          AKPFlowLayout Docs
+        </a>
+         (55% documented)
+      </p>
+    
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="index.html">AKPFlowLayout Reference</a>
+      <img class="carat" src="img/carat.png" />
+      AKPFlowLayout  Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/AKPFlowLayout.html">AKPFlowLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/AKPFlowLayoutAttributes.html">AKPFlowLayoutAttributes</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/AKPFlowLayoutError.html">AKPFlowLayoutError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/AKPLayoutConfigOptions.html">AKPLayoutConfigOptions</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            
+            <a href='#akpflowlayout' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='akpflowlayout'>AKPFlowLayout</h1>
+
+<p><img src="https://img.shields.io/badge/language-Swift%202-orange.svg" alt="Language">
+<img src="https://img.shields.io/badge/License-MIT%20License-blue.svg" alt="License"></p>
+
+<p>AKPFlowLayout is a custom Collection View layout with configurable global header and pinnable, stretchable section headers.</p>
+<a href='#blogs' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='blogs'>Blogs</h2>
+
+<ul>
+<li><a href="http://www.akpdev.com/articles/2016/06/16/CollectionView-I.html">Custom UICollectionView: Global Headers</a></li>
+</ul>
+<a href='#sample_app' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='sample_app'>Sample App</h2>
+
+<ul>
+<li><a href="https://github.com/akpw/SwiftNetworkImages">SwiftNetworkImages</a></li>
+</ul>
+<a href='#features' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='features'>Features</h2>
+
+<ul>
+<li>UICollectionView Custom Layout examples:
+
+<ul>
+<li>Global section header</li>
+<li>Sticky section headers</li>
+<li>Pinnable, stretchable sections</li>
+<li>Fully configurable</li>
+</ul></li>
+<li>Written in Swift 2.2 and Xcode 7.3</li>
+</ul>
+<a href='#requirements' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='requirements'>Requirements</h2>
+
+<ul>
+<li>iOS 8+</li>
+<li>Xcode 7.3+</li>
+<li>Swift 2.2+</li>
+</ul>
+<a href='#installation' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='installation'>Installation</h2>
+<a href='#a_href_http_cocoapods_org_cocoapods_a_recommended' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='a_href_http_cocoapods_org_cocoapods_a_recommended'><a href="http://cocoapods.org">CocoaPods</a> (recommended)</h4>
+<pre class="highlight shell"><code>use_frameworks!
+pod <span class="s1">'AKPFlowLayout'</span>, :git <span class="o">=</span>&gt; <span class="s1">'https://github.com/akpw/AKPFlowLayout'</span>
+</code></pre>
+<a href='#a_href_https_github_com_carthage_carthage_carthage_a' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='a_href_https_github_com_carthage_carthage_carthage_a'><a href="https://github.com/Carthage/Carthage">Carthage</a></h4>
+
+<ol>
+<li>Add AKPFlowLayout to your <a href="https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile"><code>Cartfile</code></a>:
+<code>
+github &quot;akpw/AKPFlowLayout&quot;
+</code></li>
+<li>Follow the <a href="https://github.com/Carthage/Carthage/blob/master/README.md#adding-frameworks-to-an-application">Carthage instructions on adding frameworks</a> for further reference</li>
+</ol>
+<a href='#docs' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='docs'>Docs</h2>
+
+<p><a href="https://akpw.github.io//AKPFlowLayout/index.html">Initial docs</a>, generated with <a href="https://github.com/realm/jazzy">jazzy</a> and hosted by <a href="https://pages.github.com">GitHub Pages</a>.</p>
+<a href='#building_the_project' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='building_the_project'>Building the project</h2>
+
+<p>1) Clone the repository</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>git clone https://github.com/akpw/AKPFlowLayout
+</code></pre>
+
+<p>2) Run carthage.sh</p>
+<pre class="highlight shell"><code><span class="gp">$ </span><span class="nb">cd </span>AKPFlowLayout
+<span class="gp">$ </span>./carthage.sh
+</code></pre>
+
+<p>3) Open the workspace in Xcode</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>open <span class="s2">"AKPFlowLayout.xcworkspace"</span>
+</code></pre>
+
+<p>4) Compile and test in Xcode</p>
+
+          </div>
+        </section>
+
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2016 <a class="link" href="https://github.com/akpw/AKPFlowLayout" target="_blank" rel="external">Arseniy Kuznetsov</a>. All rights reserved. (Last updated: 2016-06-17)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.6.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
