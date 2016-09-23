@@ -38,7 +38,7 @@ AKPFlowLayout is a custom Collection View layout with configurable global header
 use_frameworks!
 pod 'AKPFlowLayout', :git => 'https://github.com/akpw/AKPFlowLayout'
 ````
-(The explicit `:git` path above is due to the current [CocoaPods issue](https://github.com/CocoaPods/CocoaPods/issues/5663))
+The explicit `:git` path above is due to the current [CocoaPods issue](https://github.com/CocoaPods/CocoaPods/issues/5663)
 
 
 #### [Carthage](https://github.com/Carthage/Carthage)
