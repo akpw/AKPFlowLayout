@@ -10,19 +10,19 @@ import UIKit
 
 /// Layout Attributes class for AKPFlowLayout
 
-public class AKPFlowLayoutAttributes: UICollectionViewLayoutAttributes {
+open class AKPFlowLayoutAttributes: UICollectionViewLayoutAttributes {
     
     /// Set by AKPFlowLayout when managing section headers stretching
     /// Can be used further for e.g. reporting amount of stretch back to the collection view items
-    public var stretchFactor: CGFloat = 0
+    open var stretchFactor: CGFloat = 0
     
-    override public func copyWithZone(zone: NSZone) -> AnyObject {
-        let aCopy = super.copyWithZone(zone) as! AKPFlowLayoutAttributes
+    override open func copy(with zone: NSZone?) -> Any {
+        let aCopy = super.copy(with: zone) as! AKPFlowLayoutAttributes
         aCopy.stretchFactor = stretchFactor
         return aCopy
     }
     
-    override public func isEqual(object: AnyObject?) -> Bool {
+    override open func isEqual(_ object: Any?) -> Bool {
         if let attributes = object as? AKPFlowLayoutAttributes {
             if attributes.stretchFactor == stretchFactor {
                 return super.isEqual(object)

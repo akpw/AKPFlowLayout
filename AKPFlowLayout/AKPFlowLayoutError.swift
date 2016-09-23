@@ -10,6 +10,6 @@ import Foundation
 
 /// AKPFlowLayout Errors
 
-public enum AKPFlowLayoutError: ErrorType {
-    case SectionHeadersPinToVisibleBoundsSettingError
+public enum AKPFlowLayoutError: Error {
+    case sectionHeadersPinToVisibleBoundsSettingError
 }

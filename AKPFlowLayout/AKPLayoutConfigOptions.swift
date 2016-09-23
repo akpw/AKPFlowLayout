@@ -10,13 +10,13 @@ import Foundation
 
 /// AKPFlowLayout configuration options
 
-public struct AKPLayoutConfigOptions: OptionSetType {
-    public static let FirstSectionIsGlobalHeader =
+public struct AKPLayoutConfigOptions: OptionSet {
+    public static let firstSectionIsGlobalHeader =
+                                AKPLayoutConfigOptions(rawValue: 1 << 0)
+    public static let firstSectionStretchable =
                                 AKPLayoutConfigOptions(rawValue: 1 << 1)
-    public static let FirstSectionStretchable =
+    public static let sectionsPinToGlobalHeaderOrVisibleBounds =
                                 AKPLayoutConfigOptions(rawValue: 1 << 2)
-    public static let SectionsPinToGlobalHeaderOrVisibleBounds =
-                                AKPLayoutConfigOptions(rawValue: 1 << 3)
     public let rawValue: Int
     public init(rawValue: Int) {
         self.rawValue = rawValue
@@ -29,8 +29,8 @@ extension AKPLayoutConfigOptions: CustomStringConvertible {
                                    "First Section Stretchable",
                                    "Sections Pin To Global Header Or Visible Bounds"]
         var memberDescriptions = [String]()
-        for (shift, description) in optionsDescriptions.enumerate()
-                    where contains( AKPLayoutConfigOptions(rawValue: 1<<(shift + 1)) ) {
+        for (shift, description) in optionsDescriptions.enumerated()
+                    where contains( AKPLayoutConfigOptions( rawValue: 1 << shift) ) {
             memberDescriptions.append(description)
         }
         return memberDescriptions
@@ -40,6 +40,3 @@ extension AKPLayoutConfigOptions: CustomStringConvertible {
         return descriptions.description
     }
 }
-
-
-
