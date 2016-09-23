@@ -36,8 +36,10 @@ AKPFlowLayout is a custom Collection View layout with configurable global header
 
 ````sh
 use_frameworks!
-pod 'AKPFlowLayout'
+pod 'AKPFlowLayout', :git => 'https://github.com/akpw/AKPFlowLayout'
 ````
+(The explicit `:git` path above is due to the current [CocoaPods issue](https://github.com/CocoaPods/CocoaPods/issues/5663))
+
 
 #### [Carthage](https://github.com/Carthage/Carthage)
 1. Add AKPFlowLayout to your [`Cartfile`](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile):
