@@ -19,7 +19,6 @@ __pycache__/
 *.py[co]
 dist/
 build/
-docs/
 
 # Packages #
 ############
@@ -70,14 +69,21 @@ DerivedData
 *.iml
 *.hmap
 *.xccheckout
+*.xcuserstate
+*.xcscmblueprint
+*.ipa
 
 #CocoaPods
 Pods
 Podfile.lock
-iCasualTours.xcworkspace
+.xcworkspace
 
-#Carthage
-Carthage/Checkouts*
+# Swift Package Manager
+.build/
+
+# Carthage
+Carthage/Build
+Carthage/Checkouts
 .gitmodules
 
 # Other source repository archive directories #
@@ -85,4 +91,3 @@ Carthage/Checkouts*
 .hg
 .svn
 CVS
-
