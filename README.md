@@ -15,7 +15,7 @@ AKPFlowLayout is a custom Collection View layout with configurable global header
 
 ## Sample App
 * [SwiftNetworkImages](https://github.com/akpw/SwiftNetworkImages)
- 
+
 
 ## Features
 * UICollectionView Custom Layout examples:
@@ -36,7 +36,7 @@ AKPFlowLayout is a custom Collection View layout with configurable global header
 
 ````sh
 use_frameworks!
-pod 'AKPFlowLayout', :git => 'https://github.com/akpw/AKPFlowLayout'
+pod 'AKPFlowLayout'
 ````
 
 #### [Carthage](https://github.com/Carthage/Carthage)
