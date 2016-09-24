@@ -18,11 +18,15 @@ AKPFlowLayout is a custom Collection View layout with configurable global header
 
 
 ## Features
-* UICollectionView Custom Layout examples:
+
+* A custom `UICollectionViewFlowLayout`-based layout featuring:
  - Global section header
  - Sticky section headers 
  - Pinnable, stretchable sections
  - Fully configurable
+
+* Built for performace, using custom invalidation context
+
 * Written in Swift 3 and Xcode 8
 
 ## Requirements
