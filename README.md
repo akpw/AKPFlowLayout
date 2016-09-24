@@ -6,7 +6,7 @@ AKPFlowLayout
 
 
 
-AKPFlowLayout is a custom Collection View layout with configurable global header and pinnable, stretchable section headers.
+AKPFlowLayout is a custom Collection View layout with configurable global header and pinnable, stretchable sections.
 
 
 ## Blogs
