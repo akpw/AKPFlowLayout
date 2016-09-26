@@ -1,7 +1,7 @@
 AKPFlowLayout
 ============
 
-![Language](https://img.shields.io/badge/language-Swift%202-orange.svg)
+![Language](https://img.shields.io/badge/language-Swift3-orange.svg)
 ![License](https://img.shields.io/badge/License-MIT%20License-blue.svg)
 
 
