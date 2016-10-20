@@ -19,13 +19,14 @@ class AKPFlowLayoutTests: QuickSpec {
             }( AKPFlowLayout() )
             
             it("uses AKPFlowLayoutAttributes when creating layout attributes") {
-                expect(AKPFlowLayout.layoutAttributesClass() == AKPFlowLayoutAttributes.self).to(beTrue())
+                print(AKPFlowLayout.layoutAttributesClass)
+                expect(AKPFlowLayout.layoutAttributesClass == AKPFlowLayoutAttributes.self).to(beTrue())
             }
             
             it("has all layout config options on by default") {
-                expect(akpFlowLayout.layoutOptions.contains(.FirstSectionIsGlobalHeader)).to(beTrue())
-                expect(akpFlowLayout.layoutOptions.contains(.FirstSectionStretchable)).to(beTrue())
-                expect(akpFlowLayout.layoutOptions.contains(.SectionsPinToGlobalHeaderOrVisibleBounds)).to(beTrue())
+                expect(akpFlowLayout.layoutOptions.contains(.firstSectionIsGlobalHeader)).to(beTrue())
+                expect(akpFlowLayout.layoutOptions.contains(.firstSectionStretchable)).to(beTrue())
+                expect(akpFlowLayout.layoutOptions.contains(.sectionsPinToGlobalHeaderOrVisibleBounds)).to(beTrue())
             }
             
             it("when running on iSO9, it disables built-in sectionHeadersPinToVisibleBounds") {

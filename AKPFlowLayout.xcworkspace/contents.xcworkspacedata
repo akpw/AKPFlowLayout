@@ -4,4 +4,14 @@
    <FileRef
       location = "container:AKPFlowLayout.xcodeproj">
    </FileRef>
+   <Group
+      location = "container:"
+      name = "Frameworks">
+      <FileRef
+         location = "group:Carthage/Checkouts/Nimble/Nimble.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Carthage/Checkouts/Quick/Quick.xcodeproj">
+      </FileRef>
+   </Group>
 </Workspace>

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		577338171DB8AD7D0083B350 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577338151DB8AD7D0083B350 /* Nimble.framework */; };
+		577338181DB8AD7D0083B350 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577338161DB8AD7D0083B350 /* Quick.framework */; };
 		57C203C81D103318004AB164 /* AKPFlowLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C203C71D103318004AB164 /* AKPFlowLayoutAttributes.swift */; };
 		57FA3EBA1D0D877E00EFD324 /* AKPFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 57FA3EB91D0D877E00EFD324 /* AKPFlowLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		57FA3EC11D0D877E00EFD324 /* AKPFlowLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FA3EB61D0D877E00EFD324 /* AKPFlowLayout.framework */; };
@@ -27,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		577338151DB8AD7D0083B350 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = "Carthage/Checkouts/Nimble/build/Debug-iphoneos/Nimble.framework"; sourceTree = "<group>"; };
+		577338161DB8AD7D0083B350 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = "Carthage/Checkouts/Quick/build/Debug-iphoneos/Quick.framework"; sourceTree = "<group>"; };
 		57C203C71D103318004AB164 /* AKPFlowLayoutAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPFlowLayoutAttributes.swift; sourceTree = "<group>"; };
 		57FA3EB61D0D877E00EFD324 /* AKPFlowLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AKPFlowLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FA3EB91D0D877E00EFD324 /* AKPFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKPFlowLayout.h; sourceTree = "<group>"; };
@@ -51,6 +55,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				577338171DB8AD7D0083B350 /* Nimble.framework in Frameworks */,
+				577338181DB8AD7D0083B350 /* Quick.framework in Frameworks */,
 				57FA3EC11D0D877E00EFD324 /* AKPFlowLayout.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,6 +108,8 @@
 		57FA3F091D0D8C0100EFD324 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				577338151DB8AD7D0083B350 /* Nimble.framework */,
+				577338161DB8AD7D0083B350 /* Quick.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -387,6 +395,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 73TM6WSTY5;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Checkouts/Nimble/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Carthage/Checkouts/Quick/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = AKPFlowLayoutTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.akpw.AKPFlowLayoutTests;
@@ -399,6 +412,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 73TM6WSTY5;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Checkouts/Nimble/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Carthage/Checkouts/Quick/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = AKPFlowLayoutTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.akpw.AKPFlowLayoutTests;
