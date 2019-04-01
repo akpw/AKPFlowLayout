@@ -59,14 +59,14 @@ public final class AKPFlowLayout: UICollectionViewFlowLayout {
         for idx in customSectionHeadersIdxs {
             let indexPath = IndexPath(item: 0, section: idx)
             if let attributes = super.layoutAttributesForSupplementaryView(
-                                                    ofKind: UICollectionElementKindSectionHeader,
+                ofKind: UICollectionView.elementKindSectionHeader,
                                                     at: indexPath) as? AKPFlowLayoutAttributes {
                 layoutAttributes.append(attributes)
             }
         }
         // for section headers, need to adjust their attributes
         for attributes in layoutAttributes where
-            attributes.representedElementKind == UICollectionElementKindSectionHeader {
+            attributes.representedElementKind == UICollectionView.elementKindSectionHeader {
                 (attributes.frame, attributes.zIndex) = adjustLayoutAttributes(forSectionAttributes: attributes)
         }
         return layoutAttributes
@@ -118,7 +118,7 @@ public final class AKPFlowLayout: UICollectionViewFlowLayout {
             // then invalidate
             let invalidatedIdxPaths = sectionIdxPaths.map { IndexPath(item: 0, section: $0) }
             invalidationContext.invalidateSupplementaryElements(
-                ofKind: UICollectionElementKindSectionHeader, at: invalidatedIdxPaths )
+                ofKind: UICollectionView.elementKindSectionHeader, at: invalidatedIdxPaths )
         }
         return invalidationContext
     }
@@ -169,7 +169,7 @@ extension AKPFlowLayout {
         
         // remove the sections that should already be taken care of by UICollectionViewFlowLayout
         for attributes in layoutAttributes
-            where attributes.representedElementKind == UICollectionElementKindSectionHeader {
+            where attributes.representedElementKind == UICollectionView.elementKindSectionHeader {
                 sectionIdxs.remove((attributes.indexPath as NSIndexPath).section)
         }
         return sectionIdxs
@@ -207,7 +207,7 @@ extension AKPFlowLayout {
                 // Stretchy header
                 if firstSectionHeight - offset < firsSectionMaximumStretchHeight {
                     sectionFrame.size.height = firstSectionHeight - offset
-                    sectionHeadersLayoutAttributes.stretchFactor = fabs(offset)
+                    sectionHeadersLayoutAttributes.stretchFactor = abs(offset)
                     previousStretchFactor = sectionHeadersLayoutAttributes.stretchFactor
                 } else {
                     // need to limit the stretch
@@ -297,7 +297,7 @@ extension AKPFlowLayout {
 private extension AKPFlowLayoutAttributes {
     // Determines if element is a section, or is a cell in a section with custom header
     func visibleSectionHeader(_ sectionsShouldPin: Bool) -> Bool {
-        let isHeader = representedElementKind == UICollectionElementKindSectionHeader
+        let isHeader = representedElementKind == UICollectionView.elementKindSectionHeader
         let isCellInPinnedSection = sectionsShouldPin && ( representedElementCategory == .cell )
         return isCellInPinnedSection || isHeader
     }
