@@ -10,7 +10,7 @@ AKPFlowLayout is a custom Collection View layout with configurable global header
 
 
 ## Blogs
-* [Custom UICollectionView: Global Headers](http://www.akpdev.com/articles/2016/06/16/CollectionView-I.html)
+* [Custom UICollectionView: Global Headers](https://akpw.github.io//articles/2016/06/16/CollectionView-I.html)
 
 
 ## Sample App
