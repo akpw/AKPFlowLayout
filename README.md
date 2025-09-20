@@ -5,7 +5,6 @@ AKPFlowLayout
 ![License](https://img.shields.io/badge/License-MIT%20License-blue.svg)
 
 
-
 AKPFlowLayout is a custom Collection View layout with configurable global header and pinnable, stretchable sections.
 
 
@@ -16,6 +15,8 @@ AKPFlowLayout is a custom Collection View layout with configurable global header
 ## Sample App
 * [SwiftNetworkImages](https://github.com/akpw/SwiftNetworkImages)
 
+## Dev Docs		
+ [Initial docs][docsLink], generated with [jazzy](https://github.com/realm/jazzy) and hosted by [GitHub Pages](https://pages.github.com).
 
 ## Features
 
@@ -50,10 +51,6 @@ pod 'AKPFlowLayout'
     github "akpw/AKPFlowLayout"
     ```
 2. Follow the [Carthage instructions on adding frameworks](https://github.com/Carthage/Carthage/blob/master/README.md#adding-frameworks-to-an-application) for further reference
-
-
-## Docs		
- [Initial docs][docsLink], generated with [jazzy](https://github.com/realm/jazzy) and hosted by [GitHub Pages](https://pages.github.com).
 
 
 ## Building the project
